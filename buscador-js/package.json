@@ -1,0 +1,17 @@
+{
+  "name": "buscador-js",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sass": "sass scss/main.scss css/main.css --watch",
+    "sass:build": "sass scss/main.scss css/main.css --style=compressed"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "sass": "^1.93.2"
+  }
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Buscador de libros de Estantería Común" />
+    <title>Estantería Común | Buscador</title>
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">Estantería Común</a>
+      </div>
+    </nav>
+
+    <main class="container py-4">
+      <section class="mb-4">
+        <h1 class="display-6">Buscador de libros</h1>
+        <p class="lead">Encuentra libros para las próximas lecturas del club.</p>
+      </section>
+
+      <section aria-labelledby="busqueda-titulo" class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h2 id="busqueda-titulo" class="h4">Buscar en Open Library</h2>
+          <form id="form-busqueda" class="row g-3">
+            <div class="col-md-9">
+              <label class="form-label" for="texto-busqueda">Título o autor</label>
+              <input id="texto-busqueda" name="q" class="form-control" type="search" required minlength="2" />
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+              <button class="btn btn-primary w-100" type="submit">Buscar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <div id="estado-busqueda" class="alert d-none" role="status" aria-live="polite"></div>
+      <section aria-labelledby="resultados-titulo">
+        <h2 id="resultados-titulo" class="h4">Resultados</h2>
+        <div id="resultados" class="row g-4"></div>
+      </section>
+
+      <section aria-labelledby="lecturas-titulo" class="mt-5">
+        <h2 id="lecturas-titulo" class="h4">Lista de lecturas</h2>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr><th>Libro</th><th>Estado</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="lista-lecturas"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

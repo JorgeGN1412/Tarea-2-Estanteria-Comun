@@ -1,6 +1,7 @@
-@import "variables";
-@import "mixins";
-
-@import "../../node_modules/bootstrap/scss/bootstrap";
-
-@import "componentes";
+@use "variables" as vars;
+@use "mixins";
+@use "../node_modules/bootstrap/scss/bootstrap" with (
+  $primary: vars.$primary,
+  $border-radius: vars.$border-radius
+);
+@use "componentes";

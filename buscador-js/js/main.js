@@ -1,4 +1,4 @@
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+
 
 import { buscarLibros } from './api.js'
 
@@ -12,7 +12,7 @@ formularioBusqueda.addEventListener('submit', async (evento) => {
 
   try {
     const datos = await buscarLibros(campoBusqueda.value.trim())
-    mostrarEstado(`${datos.numFound} resultado(s) encontrado(s).`, 'success')
+    mostrarEstado(`Mostrando ${datos.docs.length} de ${datos.numFound} resultados.`, 'success')
   } catch (error) {
     mostrarEstado('No fue posible completar la búsqueda.', 'danger')
     console.error(error)

@@ -1,6 +1,5 @@
-
-
 import { buscarLibros } from './api.js'
+import { renderizarResultados } from './render.js'
 
 const formularioBusqueda = document.querySelector('#form-busqueda')
 const campoBusqueda = document.querySelector('#texto-busqueda')
@@ -12,6 +11,7 @@ formularioBusqueda.addEventListener('submit', async (evento) => {
 
   try {
     const datos = await buscarLibros(campoBusqueda.value.trim())
+    renderizarResultados(datos.docs)
     mostrarEstado(`Mostrando ${datos.docs.length} de ${datos.numFound} resultados.`, 'success')
   } catch (error) {
     mostrarEstado('No fue posible completar la búsqueda.', 'danger')

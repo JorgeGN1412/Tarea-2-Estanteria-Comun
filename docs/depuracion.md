@@ -8,7 +8,7 @@ Al abrir la Parte B durante la revisión final, la consola mostró `ReferenceErr
 
 Al probar el buscador, la consola mostró `Failed to resolve module specifier "bootstrap/dist/js/bootstrap.bundle.min.js"`. El formulario no respondía porque `main.js` dejaba de ejecutarse antes de registrar el evento `submit`. El módulo se había importado usando el nombre del paquete, sintaxis que Vite resuelve en React pero que el navegador no resuelve directamente al servir archivos estáticos. Se eliminó esa importación y, al incorporar el modal, se cargó el bundle local con `<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">` en `index.html`.
 
-La consola permitió identificar el error. Un breakpoint al inicio de `main.js` no se alcanzaba porque el navegador detenía el módulo durante la resolución del import. Tras retirar esa importación, un breakpoint en `const datos = await buscarLibros(texto)` sí permite seguir el flujo al enviar el formulario. **Pendiente:** reproducir y capturar el punto de interrupción en DevTools → Sources; guardar la imagen real en `docs/capturas/`. No se incluye una captura inventada.
+La consola permitió identificar el error. Tras retirar esa importación, se colocó un breakpoint en `const datos = await buscarLibros(texto)` (`main.js`, línea 24). Al buscar «Don Quijote», Chrome se detuvo allí y el panel Scope mostró `texto: "Don Quijote"`. La captura real está en [capturas/breakpoint-busqueda.png](capturas/breakpoint-busqueda.png).
 
 ## Panel de red
 

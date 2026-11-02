@@ -8,15 +8,15 @@ function nodo(etiqueta, clase = '', texto = null) {
   return elemento
 }
 
-function portadaDe(libro) {
+function portadaDe(libro, tamano) {
   return libro.cover_i
-    ? `https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg`
+    ? `https://covers.openlibrary.org/b/id/${libro.cover_i}-${tamano}.jpg`
     : './img/sin-portada.svg'
 }
 
-function crearPortada(libro, clase) {
+function crearPortada(libro, clase, tamano = 'S') {
   const imagen = nodo('img', clase)
-  imagen.src = portadaDe(libro)
+  imagen.src = portadaDe(libro, tamano)
   imagen.alt = `Portada de ${libro.title || 'libro sin título'}`
   imagen.onerror = () => {
     imagen.onerror = null
@@ -59,7 +59,7 @@ export function renderizarResultados(libros) {
 export function mostrarDetalle(libro) {
   const contenido = document.querySelector('#detalle-contenido')
   contenido.replaceChildren()
-  const imagen = crearPortada(libro, 'img-fluid mb-3')
+  const imagen = crearPortada(libro, 'img-fluid mb-3', 'M')
   contenido.append(
     imagen,
     nodo('h3', 'h5', libro.title || 'Sin título'),

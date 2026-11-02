@@ -4,32 +4,37 @@ import { miembros } from '../../data/libros.js'
 const vacio = { titulo: '', autor: '', miembro: '' }
 
 function FormularioLibro({ onAgregar }) {
+  // Los inputs son controlados: su valor siempre sale de valores.
   const [valores, setValores] = useState(vacio)
   const [errores, setErrores] = useState({})
 
   function cambiar(evento) {
     const { name, value } = evento.target
+    // [name] actualiza solo el campo editado sin perder los demás.
     setValores((actuales) => ({ ...actuales, [name]: value }))
     setErrores((actuales) => ({ ...actuales, [name]: '' }))
   }
 
   function enviar(evento) {
     evento.preventDefault()
+    // Reúne mensajes por campo y detiene el envío si algo falta.
     const nuevosErrores = {}
     if (valores.titulo.trim().length < 2) nuevosErrores.titulo = 'Escribe al menos 2 caracteres.'
     if (valores.autor.trim().length < 2) nuevosErrores.autor = 'Escribe al menos 2 caracteres.'
     if (!valores.miembro) nuevosErrores.miembro = 'Selecciona un miembro.'
     setErrores(nuevosErrores)
     if (Object.keys(nuevosErrores).length > 0) return
+    // Llama a la función de App con los datos validados.
     onAgregar({
       titulo: valores.titulo.trim(),
       autor: valores.autor.trim(),
       miembro: valores.miembro,
       estado: 'Pendiente',
     })
-    setValores(vacio)
+    setValores(vacio) // Vacía los tres controles tras agregar.
   }
 
+  // noValidate deja que los mensajes propios se muestren por campo.
   return (
     <form onSubmit={enviar} noValidate className="row g-3">
       <div className="col-md-5">

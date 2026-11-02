@@ -1,3 +1,4 @@
+// Reutiliza el mismo diseño de Bootstrap; children es el contenido entre <Panel> y </Panel>.
 function Panel({ titulo, children }) {
   return (
     <section className="card shadow-sm mb-4">

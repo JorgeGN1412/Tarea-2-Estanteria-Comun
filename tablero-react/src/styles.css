@@ -1,7 +1,9 @@
+/* Color de fondo general; Bootstrap aporta el resto del diseño. */
 body {
   background-color: #f8f9fa;
 }
 
+/* Destaca los conteos que Resumen.jsx calcula desde App. */
 .resumen-numero {
   font-size: 2rem;
   font-weight: bold;

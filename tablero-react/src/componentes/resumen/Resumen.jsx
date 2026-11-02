@@ -1,3 +1,4 @@
+// Recibe los conteos ya calculados en App y dibuja uno por estado.
 function Resumen({ conteos }) {
   return (
     <div className="row text-center">

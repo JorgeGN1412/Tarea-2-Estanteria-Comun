@@ -1,5 +1,6 @@
 @use "mixins";
 
+// Una columna en móvil y dos desde 48rem: diseño mobile first.
 .resultados-grid {
   display: grid;
   gap: 1rem;
@@ -10,16 +11,19 @@
   }
 }
 
+// Función Sass que transforma un número en una medida de espacio.
 @function espacio($veces) {
   @return $veces * 0.5rem;
 }
 
 .libro-card {
+  // Variable CSS que también se puede cambiar en el navegador sin recompilar Sass.
   --portada-fondo: #f1edf7;
   display: flex;
   gap: espacio(1);
   padding-top: espacio(2);
 
+  // & combina este selector con .libro-card: resulta .libro-card__portada.
   &__portada {
     width: 5rem;
     height: 7rem;
@@ -28,6 +32,7 @@
     background: var(--portada-fondo);
   }
 
+  // Aplica el mixin cuando se enfoca un botón dentro de la tarjeta.
   &:focus-within {
     @include mixins.focus-ring(#6f42c1);
   }
@@ -37,6 +42,7 @@
   }
 }
 
+// Estas clases disparan entrada, salida y cambio de estado sin crear CSS desde JS.
 .lectura {
   opacity: 1;
   transform: translateX(0);

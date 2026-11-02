@@ -1,6 +1,8 @@
+// Datos locales de ejemplo: React los usa como estado inicial, sin base de datos.
 export const estados = ['Pendiente', 'Leyendo', 'Leído']
 export const miembros = ['Ana', 'Diego', 'María', 'Jorge']
 
+// Cada id identifica un libro al cambiarlo, quitarlo o dibujar su tarjeta.
 export const librosIniciales = [
   { id: 'libro-1', titulo: 'Don Quijote de la Mancha', autor: 'Miguel de Cervantes', miembro: 'Ana', estado: 'Pendiente' },
   { id: 'libro-2', titulo: 'Cien años de soledad', autor: 'Gabriel García Márquez', miembro: 'Diego', estado: 'Leyendo' },

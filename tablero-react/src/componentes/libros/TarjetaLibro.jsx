@@ -1,3 +1,4 @@
+// Muestra un libro; los botones llaman funciones que llegan desde App por props.
 function TarjetaLibro({ libro, onAvanzar, onQuitar }) {
   return (
     <article className="card h-100 shadow-sm">

@@ -1,5 +1,6 @@
 @use "variables" as vars;
 @use "mixins";
+// Compila Bootstrap con nuestros colores y bordes; el navegador recibe css/main.css.
 @use "../node_modules/bootstrap/scss/bootstrap" with (
   $primary: vars.$primary,
   $border-radius: vars.$border-radius

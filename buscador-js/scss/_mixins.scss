@@ -1,4 +1,4 @@
-// Los mixins reutilizables de la interfaz se incorporarán aquí.
+// Un mixin reutiliza estas reglas al enfocar una tarjeta con teclado.
 @mixin focus-ring($color) {
   outline: 0.15rem solid $color;
   outline-offset: 0.15rem;

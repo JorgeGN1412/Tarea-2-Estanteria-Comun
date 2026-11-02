@@ -1,5 +1,6 @@
 import { estados, miembros } from '../../data/libros.js'
 
+// App guarda los filtros; este componente solo muestra los selects y avisa cambios.
 function Filtros({ estado, miembro, onCambiarEstado, onCambiarMiembro }) {
   return (
     <div className="row g-3">

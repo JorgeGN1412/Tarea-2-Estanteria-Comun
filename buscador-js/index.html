@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Buscador de libros de Estantería Común" />
     <title>Estantería Común | Buscador</title>
+    <!-- El CSS generado desde Sass incluye Bootstrap y nuestros estilos. -->
     <link rel="icon" type="image/svg+xml" href="./img/sin-portada.svg" />
     <link rel="stylesheet" href="./css/main.css" />
   </head>
@@ -21,6 +22,7 @@
         <p class="lead">Encuentra libros para las próximas lecturas del club.</p>
       </section>
 
+      <!-- main.js escucha el envío de #form-busqueda y lee #texto-busqueda. -->
       <section aria-labelledby="busqueda-titulo" class="card shadow-sm mb-4">
         <div class="card-body">
           <h2 id="busqueda-titulo" class="h4">Buscar en Open Library</h2>
@@ -36,12 +38,14 @@
         </div>
       </section>
 
+      <!-- main.js cambia el aviso; render.js agrega las tarjetas a #resultados. -->
       <div id="estado-busqueda" class="alert d-none" role="status" aria-live="polite"></div>
       <section aria-labelledby="resultados-titulo">
         <h2 id="resultados-titulo" class="h4">Resultados</h2>
         <div id="resultados" class="row g-4"></div>
       </section>
 
+      <!-- El tbody empieza vacío; render.js crea sus filas al agregar libros. -->
       <section aria-labelledby="lecturas-titulo" class="mt-5">
         <h2 id="lecturas-titulo" class="h4">Lista de lecturas</h2>
         <div class="table-responsive">
@@ -54,6 +58,7 @@
         </div>
       </section>
 
+      <!-- novalidate deja que formulario.js muestre mensajes propios por campo. -->
       <section aria-labelledby="propuesta-titulo" class="card shadow-sm mt-5">
         <div class="card-body">
           <h2 id="propuesta-titulo" class="h4">Proponer una lectura</h2>
@@ -105,6 +110,7 @@
       </section>
     </main>
 
+    <!-- render.js llena este modal y Bootstrap controla su apertura y cierre. -->
     <div class="modal fade" id="detalle-modal" tabindex="-1" aria-labelledby="detalle-titulo" aria-hidden="true">
       <div class="modal-dialog"><div class="modal-content">
         <div class="modal-header">
@@ -115,6 +121,7 @@
       </div></div>
     </div>
 
+    <!-- Bootstrap se carga como archivo local; main.js sí usa módulos import/export. -->
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="./js/main.js"></script>
   </body>

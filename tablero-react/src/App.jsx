@@ -4,6 +4,7 @@ import Panel from './componentes/comunes/Panel.jsx'
 import ListaLibros from './componentes/libros/ListaLibros.jsx'
 import Filtros from './componentes/filtros/Filtros.jsx'
 import Resumen from './componentes/resumen/Resumen.jsx'
+import FormularioLibro from './componentes/libros/FormularioLibro.jsx'
 
 function App() {
   const [libros, setLibros] = useState(librosIniciales)
@@ -32,6 +33,10 @@ function App() {
     setLibros((actuales) => actuales.filter((libro) => libro.id !== id))
   }
 
+  function agregar(libro) {
+    setLibros((actuales) => [...actuales, libro])
+  }
+
   return (
     <>
       <nav className="navbar bg-primary" data-bs-theme="dark">
@@ -40,6 +45,7 @@ function App() {
       <main className="container py-4">
         <h1>Tablero de lecturas</h1>
         <p className="lead">Libros propuestos por miembros del club.</p>
+        <Panel titulo="Agregar libro"><FormularioLibro onAgregar={agregar} /></Panel>
         <div className="row g-3">
           <div className="col-lg-8">
             <Panel titulo="Filtros">

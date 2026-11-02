@@ -14,14 +14,23 @@ function portadaDe(libro) {
     : './img/sin-portada.svg'
 }
 
+function crearPortada(libro, clase) {
+  const imagen = nodo('img', clase)
+  imagen.src = portadaDe(libro)
+  imagen.alt = `Portada de ${libro.title || 'libro sin título'}`
+  imagen.onerror = () => {
+    imagen.onerror = null
+    imagen.src = './img/sin-portada.svg'
+  }
+  return imagen
+}
+
 export function renderizarResultados(libros) {
   resultados.replaceChildren()
   libros.forEach((libro) => {
     const columna = nodo('div', 'col-sm-6 col-lg-4')
     const tarjeta = nodo('article', 'card h-100 libro-card')
-    const portada = nodo('img', 'libro-card__portada')
-    portada.src = portadaDe(libro)
-    portada.alt = `Portada de ${libro.title || 'libro sin título'}`
+    const portada = crearPortada(libro, 'libro-card__portada')
     portada.loading = 'lazy'
     const cuerpo = nodo('div', 'card-body d-flex flex-column')
     cuerpo.append(
@@ -50,9 +59,7 @@ export function renderizarResultados(libros) {
 export function mostrarDetalle(libro) {
   const contenido = document.querySelector('#detalle-contenido')
   contenido.replaceChildren()
-  const imagen = nodo('img', 'img-fluid mb-3')
-  imagen.src = portadaDe(libro)
-  imagen.alt = `Portada de ${libro.title || 'libro sin título'}`
+  const imagen = crearPortada(libro, 'img-fluid mb-3')
   contenido.append(
     imagen,
     nodo('h3', 'h5', libro.title || 'Sin título'),

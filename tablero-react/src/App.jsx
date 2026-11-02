@@ -6,6 +6,8 @@ import Filtros from './componentes/filtros/Filtros.jsx'
 import Resumen from './componentes/resumen/Resumen.jsx'
 import FormularioLibro from './componentes/libros/FormularioLibro.jsx'
 
+let siguienteId = 5
+
 function App() {
   const [libros, setLibros] = useState(librosIniciales)
   const [filtroEstado, setFiltroEstado] = useState('Todos')
@@ -34,7 +36,8 @@ function App() {
   }
 
   function agregar(libro) {
-    setLibros((actuales) => [...actuales, libro])
+    const nuevo = { ...libro, id: `libro-${siguienteId++}` }
+    setLibros((actuales) => [...actuales, nuevo])
   }
 
   return (

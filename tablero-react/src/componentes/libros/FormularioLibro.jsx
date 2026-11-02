@@ -22,7 +22,6 @@ function FormularioLibro({ onAgregar }) {
     setErrores(nuevosErrores)
     if (Object.keys(nuevosErrores).length > 0) return
     onAgregar({
-      id: crypto.randomUUID(),
       titulo: valores.titulo.trim(),
       autor: valores.autor.trim(),
       miembro: valores.miembro,

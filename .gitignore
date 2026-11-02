@@ -5,7 +5,4 @@ dist/
 *.log
 *.map
 
-docs/capturas/*.png
-docs/capturas/*.jpg
-
 work/

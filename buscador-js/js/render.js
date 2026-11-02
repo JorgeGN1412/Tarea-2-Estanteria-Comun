@@ -1,70 +1,96 @@
-// Busca en index.html el elemento con id="resultados".
-// Ahí colocaremos las tarjetas de los libros.
-const contenedor = document.querySelector('#resultados')
+const resultados = document.querySelector('#resultados')
+const lista = document.querySelector('#lista-lecturas')
 
-// Recibe un arreglo de libros y crea una tarjeta por cada uno.
-// "export" permite usar esta función desde main.js.
+function nodo(etiqueta, clase = '', texto = null) {
+  const elemento = document.createElement(etiqueta)
+  elemento.className = clase
+  if (texto !== null) elemento.textContent = texto
+  return elemento
+}
+
+function portadaDe(libro) {
+  return libro.cover_i
+    ? `https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg`
+    : './img/sin-portada.svg'
+}
+
 export function renderizarResultados(libros) {
-  // Borra los resultados de una búsqueda anterior.
-  contenedor.replaceChildren()
-
-  // Recorre el arreglo: "libro" representa un libro en cada vuelta.
+  resultados.replaceChildren()
   libros.forEach((libro) => {
-    // Crea el elemento exterior de la tarjeta.
-    const tarjeta = document.createElement('div')
-    tarjeta.className = 'card mb-3'
-
-    // Crea una sección interior para el contenido de la tarjeta.
-    const cuerpo = document.createElement('div')
-    cuerpo.className = 'card-body'
-
-    // Crea un elemento <img> para la portada.
-    const portada = document.createElement('img')
-    portada.className = 'd-block mx-auto mt-3'
-    portada.width = 160
-    portada.height = 220
-
-    // Describe la imagen para quien no pueda verla.
+    const columna = nodo('div', 'col-sm-6 col-lg-4')
+    const tarjeta = nodo('article', 'card h-100 libro-card')
+    const portada = nodo('img', 'libro-card__portada')
+    portada.src = portadaDe(libro)
     portada.alt = `Portada de ${libro.title || 'libro sin título'}`
-
-    // cover_i es el identificador de portada que envía Open Library.
-    // Si no existe, usamos la imagen alternativa guardada en el proyecto.
-    portada.src = libro.cover_i
-      ? `https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg`
-      : './img/sin-portada.svg'
-
-    // Crea el título del libro.
-    const titulo = document.createElement('h3')
-    titulo.className = 'card-title h5'
-
-    // Usa el título recibido de la API; si falta, muestra "Sin título".
-    titulo.textContent = libro.title || 'Sin título'
-
-    // Crea un párrafo para los autores.
-    const autores = document.createElement('p')
-    autores.className = 'card-text'
-
-    // author_name suele ser un arreglo. join(', ') une sus nombres.
-    // ?. evita un error si author_name no existe.
-    autores.textContent =
-      `Autor(es): ${libro.author_name?.join(', ') || 'No disponible'}`
-
-    // Crea un párrafo para el año de primera publicación.
-    const anio = document.createElement('p')
-    anio.className = 'card-text'
-    anio.textContent =
-      `Primera publicación: ${libro.first_publish_year || 'No disponible'}`
-
-    // Mete título, autores y año dentro del cuerpo, en ese orden.
-    cuerpo.appendChild(titulo)
-    cuerpo.appendChild(autores)
-    cuerpo.appendChild(anio)
-
-    // Mete primero la portada y luego el cuerpo dentro de la tarjeta.
-    tarjeta.appendChild(portada)
-    tarjeta.appendChild(cuerpo)
-
-    // Mete la tarjeta terminada en la sección de resultados de la página.
-    contenedor.appendChild(tarjeta)
+    portada.loading = 'lazy'
+    const cuerpo = nodo('div', 'card-body d-flex flex-column')
+    cuerpo.append(
+      nodo('h3', 'card-title h5', libro.title || 'Sin título'),
+      nodo('p', 'card-text', `Autor(es): ${libro.author_name?.join(', ') || 'No disponible'}`),
+      nodo('p', 'card-text', `Primera publicación: ${libro.first_publish_year || 'No disponible'}`),
+    )
+    const acciones = nodo('div', 'd-flex gap-2 mt-auto')
+    for (const [accion, texto, clase] of [
+      ['detalle', 'Detalle', 'btn btn-outline-primary'],
+      ['agregar', 'Agregar', 'btn btn-primary'],
+    ]) {
+      const boton = nodo('button', clase, texto)
+      boton.type = 'button'
+      boton.dataset.accion = accion
+      boton.dataset.id = libro.key
+      acciones.appendChild(boton)
+    }
+    cuerpo.appendChild(acciones)
+    tarjeta.append(portada, cuerpo)
+    columna.appendChild(tarjeta)
+    resultados.appendChild(columna)
   })
+}
+
+export function mostrarDetalle(libro) {
+  const contenido = document.querySelector('#detalle-contenido')
+  contenido.replaceChildren()
+  const imagen = nodo('img', 'img-fluid mb-3')
+  imagen.src = portadaDe(libro)
+  imagen.alt = `Portada de ${libro.title || 'libro sin título'}`
+  contenido.append(
+    imagen,
+    nodo('h3', 'h5', libro.title || 'Sin título'),
+    nodo('p', '', `Autor(es): ${libro.author_name?.join(', ') || 'No disponible'}`),
+    nodo('p', '', `Primera publicación: ${libro.first_publish_year || 'No disponible'}`),
+  )
+  window.bootstrap.Modal.getOrCreateInstance(document.querySelector('#detalle-modal')).show()
+}
+
+export function agregarFila(libro, estado) {
+  const fila = nodo('tr', 'lectura lectura--entrada')
+  fila.dataset.id = libro.key
+  const acciones = nodo('td')
+  for (const [accion, texto, clase] of [
+    ['avanzar', 'Cambiar estado', 'btn btn-sm btn-outline-primary me-2'],
+    ['quitar', 'Quitar', 'btn btn-sm btn-outline-danger'],
+  ]) {
+    const boton = nodo('button', clase, texto)
+    boton.type = 'button'
+    boton.dataset.accion = accion
+    acciones.appendChild(boton)
+  }
+  fila.append(nodo('td', '', libro.title || 'Sin título'), nodo('td', 'estado-lectura', estado), acciones)
+  lista.appendChild(fila)
+  requestAnimationFrame(() => fila.classList.remove('lectura--entrada'))
+}
+
+export function actualizarFila(id, estado) {
+  const fila = [...lista.rows].find((item) => item.dataset.id === id)
+  if (!fila) return
+  fila.querySelector('.estado-lectura').textContent = estado
+  fila.classList.add('lectura--cambio')
+  fila.addEventListener('animationend', () => fila.classList.remove('lectura--cambio'), { once: true })
+}
+
+export function quitarFila(id) {
+  const fila = [...lista.rows].find((item) => item.dataset.id === id)
+  if (!fila) return
+  fila.classList.add('lectura--salida')
+  fila.addEventListener('transitionend', () => fila.remove(), { once: true })
 }

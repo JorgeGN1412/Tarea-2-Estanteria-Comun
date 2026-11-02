@@ -52,6 +52,56 @@
           </table>
         </div>
       </section>
+
+      <section aria-labelledby="propuesta-titulo" class="card shadow-sm mt-5">
+        <div class="card-body">
+          <h2 id="propuesta-titulo" class="h4">Proponer una lectura</h2>
+          <form id="form-propuesta" class="row g-3" novalidate>
+            <div class="col-md-6">
+              <label for="titulo" class="form-label">Título</label>
+              <input id="titulo" name="titulo" class="form-control" required minlength="2">
+              <div class="invalid-feedback" data-error="titulo"></div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Autores (1 a 5)</label>
+              <div id="autores-campos"></div>
+              <button id="agregar-autor" type="button" class="btn btn-sm btn-outline-primary mt-2">Agregar autor</button>
+            </div>
+            <div class="col-md-4">
+              <label for="anio" class="form-label">Año de publicación</label>
+              <input id="anio" name="anio" type="number" class="form-control" required min="1450">
+              <div class="invalid-feedback" data-error="anio"></div>
+            </div>
+            <div class="col-md-4">
+              <label for="paginas" class="form-label">Páginas</label>
+              <input id="paginas" name="paginas" type="number" class="form-control" required min="1">
+              <div class="invalid-feedback" data-error="paginas"></div>
+            </div>
+            <div class="col-md-4">
+              <label for="genero" class="form-label">Género</label>
+              <input id="genero" name="genero" class="form-control" required minlength="2">
+              <div class="invalid-feedback" data-error="genero"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="correo" class="form-label">Correo de quien propone</label>
+              <input id="correo" name="correo" type="email" class="form-control" required>
+              <div class="invalid-feedback" data-error="correo"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="fecha" class="form-label">Fecha de la sesión</label>
+              <input id="fecha" name="fecha" type="date" class="form-control" required>
+              <div class="invalid-feedback" data-error="fecha"></div>
+            </div>
+            <div class="col-12">
+              <label for="motivo" class="form-label">Motivo de la propuesta</label>
+              <textarea id="motivo" name="motivo" class="form-control" required minlength="10" rows="3"></textarea>
+              <div class="invalid-feedback" data-error="motivo"></div>
+            </div>
+            <div class="col-12"><button class="btn btn-primary" type="submit">Enviar propuesta</button></div>
+          </form>
+          <div id="estado-propuesta" class="alert d-none mt-3" role="status" aria-live="polite"></div>
+        </div>
+      </section>
     </main>
 
     <div class="modal fade" id="detalle-modal" tabindex="-1" aria-labelledby="detalle-titulo" aria-hidden="true">

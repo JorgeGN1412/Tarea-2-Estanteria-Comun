@@ -1,6 +1,7 @@
 import { buscarLibros } from './api.js'
 import { renderizarResultados, mostrarDetalle, agregarFila, actualizarFila, quitarFila } from './render.js'
 import { agregarLectura, avanzarLectura, quitarLectura } from './lecturas.js'
+import './formulario.js'
 
 const formulario = document.querySelector('#form-busqueda')
 const estadoBusqueda = document.querySelector('#estado-busqueda')

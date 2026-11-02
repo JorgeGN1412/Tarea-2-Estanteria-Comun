@@ -1,5 +1,9 @@
 # Depuración y rendimiento
 
+## Error real: tablero React en blanco
+
+Al abrir la Parte B durante la revisión final, la consola mostró `ReferenceError: React is not defined` en `src/main.jsx`. El proyecto ya tenía instalado `@vitejs/plugin-react`, pero faltaba `vite.config.js` para activarlo. Al agregar esa configuración y reiniciar Vite, el tablero se mostró. Se comprobó en el navegador que el formulario presenta errores por campo, agrega un libro, los filtros combinan estado y miembro, y el resumen cambia al actualizar un estado. `npm run build` terminó correctamente.
+
 ## Error real: importación de Bootstrap en JavaScript sin Vite
 
 Al probar el buscador, la consola mostró `Failed to resolve module specifier "bootstrap/dist/js/bootstrap.bundle.min.js"`. El formulario no respondía porque `main.js` dejaba de ejecutarse antes de registrar el evento `submit`. El módulo se había importado usando el nombre del paquete, sintaxis que Vite resuelve en React pero que el navegador no resuelve directamente al servir archivos estáticos. Se eliminó esa importación y, al incorporar el modal, se cargó el bundle local con `<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">` en `index.html`.

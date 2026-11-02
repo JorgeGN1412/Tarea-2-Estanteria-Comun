@@ -2,9 +2,23 @@ import { useState } from 'react'
 import { librosIniciales, estados } from './data/libros.js'
 import Panel from './componentes/comunes/Panel.jsx'
 import ListaLibros from './componentes/libros/ListaLibros.jsx'
+import Filtros from './componentes/filtros/Filtros.jsx'
+import Resumen from './componentes/resumen/Resumen.jsx'
 
 function App() {
   const [libros, setLibros] = useState(librosIniciales)
+  const [filtroEstado, setFiltroEstado] = useState('Todos')
+  const [filtroMiembro, setFiltroMiembro] = useState('Todos')
+
+  // Estos valores se calculan a partir del estado; no necesitan otro useState.
+  const visibles = libros.filter((libro) =>
+    (filtroEstado === 'Todos' || libro.estado === filtroEstado) &&
+    (filtroMiembro === 'Todos' || libro.miembro === filtroMiembro),
+  )
+  const conteos = estados.map((estado) => ({
+    estado,
+    cantidad: libros.filter((libro) => libro.estado === estado).length,
+  }))
 
   function avanzar(id) {
     setLibros((actuales) => actuales.map((libro) => {
@@ -26,9 +40,20 @@ function App() {
       <main className="container py-4">
         <h1>Tablero de lecturas</h1>
         <p className="lead">Libros propuestos por miembros del club.</p>
-        <Panel titulo="Libros del club">
-          <ListaLibros libros={libros} onAvanzar={avanzar} onQuitar={quitar} />
-        </Panel>
+        <div className="row g-3">
+          <div className="col-lg-8">
+            <Panel titulo="Filtros">
+              <Filtros estado={filtroEstado} miembro={filtroMiembro}
+                onCambiarEstado={setFiltroEstado} onCambiarMiembro={setFiltroMiembro} />
+            </Panel>
+            <Panel titulo="Libros del club">
+              <ListaLibros libros={visibles} onAvanzar={avanzar} onQuitar={quitar} />
+            </Panel>
+          </div>
+          <div className="col-lg-4">
+            <Panel titulo="Resumen"><Resumen conteos={conteos} /></Panel>
+          </div>
+        </div>
       </main>
     </>
   )
